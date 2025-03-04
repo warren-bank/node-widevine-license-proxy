@@ -1,0 +1,7 @@
+{
+  "name": "common-libraries",
+  "private": true,
+  "dependencies": {
+    "@warren-bank/node-request": "^2.0.12"
+  }
+}

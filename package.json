@@ -1,0 +1,31 @@
+{
+  "name": "@warren-bank/widevine-license-proxy",
+  "description": "Node.js server to proxy acquisition requests to Widevine license servers",
+  "version":     "1.0.0",
+  "scripts": {
+    "start":     "node widevine-license-proxy/bin/wvlpd.js",
+    "sudo": "sudo node widevine-license-proxy/bin/wvlpd.js"
+  },
+  "bin": {
+    "wvlpd": "widevine-license-proxy/bin/wvlpd.js"
+  },
+  "dependencies": {
+    "@warren-bank/node-process-argv": "^1.2.1",
+    "cors": "2.8.5",
+    "express": "4.21.2"
+  },
+  "license": "GPL-2.0",
+  "author": {
+    "name":   "Warren R. Bank",
+    "email":  "warren.r.bank@gmail.com",
+    "url":    "https://github.com/warren-bank"
+  },
+  "homepage": "https://github.com/warren-bank/node-widevine-license-proxy",
+  "repository": {
+    "type":   "git",
+    "url":    "https://github.com/warren-bank/node-widevine-license-proxy"
+  },
+  "bugs": {
+    "url":    "https://github.com/warren-bank/node-widevine-license-proxy/issues"
+  }
+}

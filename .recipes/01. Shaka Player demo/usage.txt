@@ -1,0 +1,32 @@
+demo page:
+==========
+
+https://shaka-player-demo.appspot.com/demo/
+
+link to video assets:
+=====================
+
+https://shaka-player-demo.appspot.com/demo/common/assets.js
+
+instructions:
+=============
+
+00. run: "start_wvlpd.bat"
+
+01. in top navmenu, click: "CUSTOM CONTENT"
+02. click the (blue circle) "+" floating icon
+03. in "MAIN" tab, enter:
+    - Manifest URL:
+        https://storage.googleapis.com/shaka-demo-assets/sintel-widevine/dash.mpd
+    - Name:
+        Sintel
+    - MIME Type:
+        application/dash+xml
+04. in "DRM" tab, enter:
+    - Custom License Server URL:
+        http://localhost:8080/shaka-player
+    - Custom License Certificate URL:
+        http://localhost:8080/shaka-player
+    - Custom DRM System:
+        com.widevine.alpha
+05. click button: "SAVE"
