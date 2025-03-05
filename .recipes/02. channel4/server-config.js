@@ -32,17 +32,17 @@ const getProxyResponse = async (req, lib) => {
 
   const {
     license_url,
+    request_id,
     token,
     video_url,
     video_type
   } = decoded_query
   decoded_query = null
 
-  if (!license_url || !token || !video_url) return null
+  if (!license_url || !request_id || !token || !video_url) return null
 
   if (!video_type) video_type = 'ondemand'
 
-  const request_id = Math.floor( Math.random() * 1e8 )
   const message = lib.arrayBufferToBase64(req.body)
   if (debug_level >= 3) console.log('encoded message:', message)
 
