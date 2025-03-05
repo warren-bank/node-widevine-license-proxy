@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>test</title>
+  <script>
+const run_test = () => {
+  const base_widevine_license_proxy_url = 'http://localhost:8080/channel4'
+  const video_data = {
+    license_url: 'http://localhost:7777/',
+    request_id: '12345',
+    token: 'TOKEN-12345',
+    video_url: 'http://video.example.com/video.mpd',
+    video_type: 'ondemand'
+  }
+  const widevine_license_proxy_url = base_widevine_license_proxy_url + '?' + Object.keys(video_data).map(key => key + '=' + btoa(video_data[key])).join('&')
+
+  fetch(widevine_license_proxy_url, {method: 'POST', headers: {'content-type': 'application/octet-stream'}, body: new Uint8Array([8, 4])})
+    .then(res => res.arrayBuffer())
+    .then(buffer => {window.alert('OK: received a ' + buffer.byteLength + ' byte response.')})
+    .catch(error => {window.alert('XHR error: ' + error.message)})
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('button').addEventListener('click', run_test)
+})
+  </script>
+</head>
+<body>
+  <button>Run Test</button>
+</body>
+</html>
