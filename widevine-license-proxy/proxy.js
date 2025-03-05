@@ -30,11 +30,13 @@ const getMiddleware = function({getCertificate, getLicense}) {
         data = await getLicense(reqCopy, lib)
 
       if (data) {
-        if (typeof data === 'string')
-          data = lib.base64ToArrayBuffer(data)
+        if (!(data instanceof Buffer)) {
+          if (typeof data === 'string')
+            data = lib.base64ToArrayBuffer(data)
 
-        if ((data instanceof ArrayBuffer) || ArrayBuffer.isView(data))
-          data = Buffer.from(data)
+          if ((data instanceof ArrayBuffer) || ArrayBuffer.isView(data))
+            data = lib.arrayBufferToNodeBuffer(data)
+        }
 
         if (data instanceof Buffer) {
           res.status(200).send(data)
@@ -91,13 +93,16 @@ const cloneHeaders = (req) => {
 const crtBody = Buffer.from('0804', 'hex')
 
 const cloneBody = (req) => {
-  return (req.method.toUpperCase() !== 'POST')
-    ? Buffer.from(crtBody)
-    : (
-        ((req.body instanceof Buffer) || (req.body instanceof ArrayBuffer) || ArrayBuffer.isView(req.body))
-          ? Buffer.from(req.body)
-          : null
-      )
+  if (req.method.toUpperCase() !== 'POST')
+    return Buffer.from(crtBody)
+
+  if (req.body instanceof Buffer)
+    return Buffer.from(req.body)
+
+  if ((req.body instanceof ArrayBuffer) || ArrayBuffer.isView(req.body))
+    return lib.arrayBufferToNodeBuffer(req.body)
+
+  return null
 }
 
 const reqCertificate = function(req) {
