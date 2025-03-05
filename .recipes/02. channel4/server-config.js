@@ -33,15 +33,13 @@ const getProxyResponse = async (req, lib) => {
   const {
     license_url,
     token,
-    video_url,
-    video_type
+    video_url
   } = decoded_query
   const request_id = parseInt(decoded_query.request_id, 10)
+  const video_type = decoded_query.video_type || 'ondemand'
   decoded_query = null
 
   if (!license_url || !token || !video_url || isNaN(request_id)) return null
-
-  if (!video_type) video_type = 'ondemand'
 
   const message = lib.arrayBufferToBase64(req.body)
 
