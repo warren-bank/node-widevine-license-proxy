@@ -92,5 +92,7 @@ const arrayBufferToNodeBuffer = (buffer) => {
 
 module.exports = {
   arrayBufferToBase64,
-  base64ToArrayBuffer
+  base64ToArrayBuffer,
+  nodeBufferToArrayBuffer,
+  arrayBufferToNodeBuffer
 }
