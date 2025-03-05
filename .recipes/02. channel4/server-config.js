@@ -1,6 +1,6 @@
 const {request} = require('@warren-bank/node-request')
 
-const debug_level = 2 // 0 = silent. 1 = XHR errors. 2 = input and output data. 3 = base64 license challenge.
+const debug_level = 3 // 0 = silent. 1 = XHR errors. 2 = input and output data. 3 = XHR body.
 
 const proxyRequest = (url, method = 'POST', headers = null, body = null) => request(
     [url, {
@@ -14,9 +14,9 @@ const proxyRequest = (url, method = 'POST', headers = null, body = null) => requ
     }
   )
   .then(data => JSON.parse(data.response))
-  .then(data => {if (debug_level >= 2) console.log('server response:', JSON.stringify(data, null, 2)); return data})
+  .then(data => {if (debug_level >= 2) console.log('XHR response:', JSON.stringify(data, null, 2)); return data})
   .then(data => data.license)
-  .catch(error => {if ((debug_level >= 1) && error && error.message) console.log(error.message); return null})
+  .catch(error => {if ((debug_level >= 1) && error && error.message) console.log('XHR error:', error.message); return null})
 
 const getProxyResponse = async (req, lib) => {
   if (debug_level >= 2) console.log('request input:', JSON.stringify((req.body ? {...req, body: `${req.body.length} bytes`} : req), null, 2))
@@ -44,7 +44,6 @@ const getProxyResponse = async (req, lib) => {
   if (!video_type) video_type = 'ondemand'
 
   const message = lib.arrayBufferToBase64(req.body)
-  if (debug_level >= 3) console.log('encoded message:', message)
 
   const headers = {
     ...(req.headers || {}),
@@ -62,6 +61,8 @@ const getProxyResponse = async (req, lib) => {
     },
     message
   }
+
+  if (debug_level >= 3) console.log('XHR body:', JSON.stringify(body, null, 2))
 
   const license = await proxyRequest(license_url, 'POST', headers, body)
 
