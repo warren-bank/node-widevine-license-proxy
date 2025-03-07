@@ -16,7 +16,7 @@ const arrayBufferToBase64 = (buffer) => {
     for (let i=0; i < len; i++) {
       binary += String.fromCharCode( bytes[i] )
     }
-    return btoa(binary)
+    return btoa_polyfill(binary)
   }
   catch(e) {
     return null
@@ -27,7 +27,7 @@ const base64ToArrayBuffer = (base64) => {
   try {
     if (!base64 || (typeof base64 !== 'string')) throw 0
 
-    const binary_string = atob(base64)
+    const binary_string = atob_polyfill(base64)
     const len = binary_string.length
     const bytes = new Uint8Array(len)
     for (let i=0; i < len; i++) {
@@ -90,9 +90,15 @@ const arrayBufferToNodeBuffer = (buffer) => {
   }
 }
 
+const atob_polyfill = a => Buffer.from(a, 'base64').toString('binary')
+
+const btoa_polyfill = b => Buffer.from(b, 'binary').toString('base64')
+
 module.exports = {
   arrayBufferToBase64,
   base64ToArrayBuffer,
   nodeBufferToArrayBuffer,
-  arrayBufferToNodeBuffer
+  arrayBufferToNodeBuffer,
+  atob: atob_polyfill,
+  btoa: btoa_polyfill
 }

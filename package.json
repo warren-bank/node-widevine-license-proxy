@@ -1,7 +1,7 @@
 {
   "name": "@warren-bank/widevine-license-proxy",
   "description": "Node.js server to proxy acquisition requests to Widevine license servers",
-  "version":     "2.0.1",
+  "version":     "2.0.2",
   "scripts": {
     "start":     "node widevine-license-proxy/bin/wvlpd.js",
     "sudo": "sudo node widevine-license-proxy/bin/wvlpd.js"

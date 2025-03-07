@@ -24,7 +24,7 @@ const getProxyResponse = async (req, lib) => {
   let decoded_query = {}
   for (let key of Object.keys(req.query)) {
     try {
-      decoded_query[key] = atob(req.query[key])
+      decoded_query[key] = lib.atob(req.query[key])
     }
     catch(e) {}
   }
