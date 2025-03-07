@@ -1,6 +1,6 @@
 const {request} = require('@warren-bank/node-request')
 
-const debug_level = 2 // 0 = silent. 1 = XHR errors. 2 = input and output data.
+const debug_level = 1 // 0 = silent. 1 = XHR errors. 2 = input and output data.
 
 const urls = {
   certificate: "https://cwip-shaka-proxy.appspot.com/service-cert",

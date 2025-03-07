@@ -1,6 +1,6 @@
 const {request} = require('@warren-bank/node-request')
 
-const debug_level = 3 // 0 = silent. 1 = XHR errors. 2 = input and output data. 3 = XHR body.
+const debug_level = 1 // 0 = silent. 1 = XHR errors. 2 = input and output data. 3 = XHR body.
 
 const proxyRequest = (url, method = 'POST', headers = null, body = null) => request(
     [url, {
