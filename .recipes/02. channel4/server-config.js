@@ -35,13 +35,30 @@ const getProxyResponse = async (req, lib) => {
     token,
     video_url
   } = decoded_query
-  const request_id = parseInt(decoded_query.request_id, 10)
-  const video_type = decoded_query.video_type || 'ondemand'
+
+  if (!license_url || !token || !video_url) return null
+
+  // VOD only
+  const request_id = decoded_query.request_id
+    ? parseInt(decoded_query.request_id, 10)
+    : null
+
+  if ((request_id !== null) && isNaN(request_id)) return null
+
+  // VOD or live
+  const video_type = decoded_query.video_type
+    ? decoded_query.video_type
+    : (
+        (request_id !== null)
+          ? 'ondemand'
+          : 'simulcast'
+      )
+
+  // garbage collection
   decoded_query = null
 
-  if (!license_url || !token || !video_url || isNaN(request_id)) return null
-
   const message = lib.arrayBufferToBase64(req.body)
+  if (!message) return null
 
   const headers = {
     ...(req.headers || {}),
@@ -51,7 +68,6 @@ const getProxyResponse = async (req, lib) => {
   }
 
   const body = {
-    request_id,
     token,
     video: {
       type: video_type,
@@ -59,6 +75,9 @@ const getProxyResponse = async (req, lib) => {
     },
     message
   }
+
+  if (request_id !== null)
+    body.request_id = request_id
 
   if (debug_level >= 3) console.log('XHR body:', JSON.stringify(body, null, 2))
 
