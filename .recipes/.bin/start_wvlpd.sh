@@ -14,9 +14,9 @@ fi
 
 wvlpd_js="${DIR}/../../widevine-license-proxy/bin/wvlpd.js"
 
-wvlpd_node_opts+=('--no-warnings')
+wvlpd_node_opts+=(--no-warnings)
 
-wvlpd_opts+=(-p 8080)
+wvlpd_opts+=(-p 8081)
 wvlpd_opts+=(--req-insecure)
 
 # -------------------------------------------------------------------- execution:

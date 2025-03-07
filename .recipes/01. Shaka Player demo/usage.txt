@@ -24,9 +24,9 @@ instructions:
         application/dash+xml
 04. in "DRM" tab, enter:
     - Custom License Server URL:
-        http://localhost:8080/shaka-player
+        http://localhost:8081/shaka-player
     - Custom License Certificate URL:
-        http://localhost:8080/shaka-player
+        http://localhost:8081/shaka-player
     - Custom DRM System:
         com.widevine.alpha
 05. click button: "SAVE"
